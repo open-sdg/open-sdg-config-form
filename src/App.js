@@ -135,6 +135,7 @@ const App = () => {
                 "postalCode": "12345"
             },
             configFilename: 'foo.yml',
+            githubClientId: 'd057ffc62f01ce8f3376',
         }
     }
 
@@ -147,10 +148,14 @@ const App = () => {
             },
         },
     });
-    const schema = opensdg.configForm.schema;
-    const uischema = opensdg.configForm.uiSchema;
-    const initialData = opensdg.configForm.existingData;
-    const configFilename = opensdg.configForm.configFilename;
+
+    const {
+        schema,
+        uiSchema,
+        initialData,
+        configFilename,
+        githubClientId,
+    } = opensdg.configForm;
     const [data, setData] = useState(initialData);
     const [errors, setErrors] = useState(null);
     return (
@@ -160,12 +165,16 @@ const App = () => {
                 errors={errors}
                 filename={configFilename}
             />
-            <GithubLoginButton />
+            { githubClientId &&
+            <GithubLoginButton
+                githubClientId={githubClientId}
+            />
+            }
             <ThemeProvider theme={theme}>
                 <div>
                     <JsonForms
                         schema={schema}
-                        uischema={uischema}
+                        uischema={uiSchema}
                         data={data}
                         renderers={materialRenderers}
                         cells={materialCells}

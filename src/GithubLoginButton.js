@@ -1,40 +1,41 @@
 import React, { useEffect, useState } from 'react';
+import { Button } from '@mui/material';
 
 const GithubLoginButton = (props) => {
 
-    const CLIENT_ID = 'd057ffc62f01ce8f3376';
+    const { githubClientId } = props;
     const [rerender, setRerender] = useState(false);
-    const [username, setUsername] = useState('');
 
     function loginWithGithub() {
         window.location.assign(
-            'https://github.com/login/oauth/authorize?client_id=' +
-            CLIENT_ID +
-            '&scope=public_repo'
+            'https://github.com/login/oauth/authorize' +
+            '?client_id=' + githubClientId +
+            '&scope=public_repo' +
+            '&redirect_uri=' + encodeURIComponent(window.location.href)
         );
     }
 
     function logoutFromGithub() {
         localStorage.removeItem('accessToken');
+        localStorage.removeItem('username');
         setRerender(!rerender);
     }
 
     async function getAccessToken(codeParam) {
-        await fetch('http://localhost:4000/getAccessToken?code=' + codeParam, {})
+        await fetch('https://open-sdg-github-auth-production.up.railway.app/getAccessToken?code=' + codeParam, {})
         .then((response) => {
             return response.json();
         })
         .then((data) => {
             if (data.access_token) {
                 localStorage.setItem('accessToken', data.access_token);
-                setRerender(!rerender);
                 getUsername();
             }
         });
     }
 
     async function getUsername() {
-        await fetch('http://localhost:4000/getUserData', {
+        await fetch('https://open-sdg-github-auth-production.up.railway.app/getUserData', {
             method: 'GET',
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
@@ -42,7 +43,8 @@ const GithubLoginButton = (props) => {
         }).then((response) => {
             return response.json();
         }).then((data) => {
-            setUsername(data.login);
+            localStorage.setItem('username', data.login);
+            setRerender(!rerender);
         });
     }
 
@@ -52,16 +54,22 @@ const GithubLoginButton = (props) => {
         const codeParam = urlParams.get('code');
     
         if (codeParam && localStorage.getItem('accessToken') === null) {
-          getAccessToken(codeParam);
+            getAccessToken(codeParam);
+        }
+        else if (localStorage.getItem('username') === null) {
+            getUsername();
         }
     });
 
-    //const { } = props;
     return (
         <>
         {localStorage.getItem('accessToken')
-            ? <button onClick={logoutFromGithub}>Logout ({username})</button>
-            : <button onClick={loginWithGithub}>Login with Github</button>
+            ? <Button variant="contained" onClick={logoutFromGithub}>
+                Logout {localStorage.getItem('username')}
+              </Button>
+            : <Button variant="contained" onClick={loginWithGithub}>
+                Login with Github
+              </Button>
         }
         </>
     )

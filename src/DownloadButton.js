@@ -1,6 +1,7 @@
 import React from 'react';
 import { saveAs } from 'file-saver';
 import { dump } from 'js-yaml';
+import { Button } from '@mui/material';
 
 const DownloadButton = (props) => {
     const saveAsFile = (t,f,m) => {
@@ -24,7 +25,9 @@ const DownloadButton = (props) => {
     }
     const { data, errors } = props;
     return (
-        <button onClick={clickHandler}>Download configuration</button>
+        <Button sx={{ mt:2, mb:2, mr: 2 }} variant="contained" onClick={clickHandler}>
+            Download configuration
+        </Button>
     )
 }
 
