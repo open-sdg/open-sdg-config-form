@@ -3,7 +3,7 @@ import { Button } from '@mui/material';
 
 const GithubLoginButton = (props) => {
 
-    const { githubClientId } = props;
+    const { githubClientId, proxyUrl } = props;
     const [rerender, setRerender] = useState(false);
 
     function loginWithGithub() {
@@ -22,7 +22,7 @@ const GithubLoginButton = (props) => {
     }
 
     async function getAccessToken(codeParam) {
-        await fetch('https://open-sdg-github-auth-production.up.railway.app/getAccessToken?code=' + codeParam, {})
+        await fetch(proxyUrl + '/getAccessToken?code=' + codeParam, {})
         .then((response) => {
             return response.json();
         })
@@ -35,7 +35,7 @@ const GithubLoginButton = (props) => {
     }
 
     async function getUsername() {
-        await fetch('https://open-sdg-github-auth-production.up.railway.app/getUserData', {
+        await fetch(proxyUrl + '/getUserData', {
             method: 'GET',
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
@@ -64,10 +64,10 @@ const GithubLoginButton = (props) => {
     return (
         <>
         {localStorage.getItem('accessToken')
-            ? <Button variant="contained" onClick={logoutFromGithub}>
+            ? <Button sx={{ mt:2, mb:2, mr: 2 }} variant="contained" onClick={logoutFromGithub}>
                 Logout {localStorage.getItem('username')}
               </Button>
-            : <Button variant="contained" onClick={loginWithGithub}>
+            : <Button sx={{ mt:2, mb:2, mr: 2 }} variant="contained" onClick={loginWithGithub}>
                 Login with Github
               </Button>
         }

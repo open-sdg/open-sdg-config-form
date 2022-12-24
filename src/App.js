@@ -7,6 +7,7 @@ import { JsonForms } from '@jsonforms/react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import DownloadButton from './DownloadButton';
 import GithubLoginButton from './GithubLoginButton';
+import GithubPushButton from './GithubPushButton';
 
 const App = () => {
     const opensdg = {
@@ -136,6 +137,9 @@ const App = () => {
             },
             configFilename: 'foo.yml',
             githubClientId: 'd057ffc62f01ce8f3376',
+            //proxyUrl: 'https://open-sdg-github-auth-production.up.railway.app',
+            repository: 'https://github.com/brockfanning/configtesting',
+            proxyUrl: 'http://localhost:4000',
         }
     }
 
@@ -155,7 +159,10 @@ const App = () => {
         initialData,
         configFilename,
         githubClientId,
+        proxyUrl,
+        repository,
     } = opensdg.configForm;
+    const loggedIn = localStorage.getItem('accessToken') !== null;
     const [data, setData] = useState(initialData);
     const [errors, setErrors] = useState(null);
     return (
@@ -165,9 +172,19 @@ const App = () => {
                 errors={errors}
                 filename={configFilename}
             />
-            { githubClientId &&
+            { githubClientId && proxyUrl &&
             <GithubLoginButton
                 githubClientId={githubClientId}
+                proxyUrl={proxyUrl}
+            />
+            }
+            { loggedIn &&
+            <GithubPushButton
+                proxyUrl={proxyUrl}
+                data={data}
+                errors={errors}
+                filename={configFilename}
+                repository={repository}
             />
             }
             <ThemeProvider theme={theme}>
