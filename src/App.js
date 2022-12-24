@@ -6,6 +6,7 @@ import {
 import { JsonForms } from '@jsonforms/react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import DownloadButton from './DownloadButton';
+import GithubLoginButton from './GithubLoginButton';
 
 const App = () => {
     const opensdg = {
@@ -159,6 +160,7 @@ const App = () => {
                 errors={errors}
                 filename={configFilename}
             />
+            <GithubLoginButton />
             <ThemeProvider theme={theme}>
                 <div>
                     <JsonForms
