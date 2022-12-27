@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from '@mui/material';
+import { Octokit } from '@octokit/rest';
 
 const GithubLoginButton = (props) => {
 
@@ -30,22 +31,21 @@ const GithubLoginButton = (props) => {
             if (data.access_token) {
                 localStorage.setItem('accessToken', data.access_token);
                 getUsername();
+                setRerender(!rerender);
             }
         });
     }
 
     async function getUsername() {
-        await fetch(proxyUrl + '/getUserData', {
-            method: 'GET',
-            headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
-            }
-        }).then((response) => {
-            return response.json();
-        }).then((data) => {
-            localStorage.setItem('username', data.login);
-            setRerender(!rerender);
+        if (!localStorage.getItem('accessToken')) {
+            return;
+        }
+        const octokit = new Octokit({
+            auth: localStorage.getItem('accessToken'),
         });
+        const { data: user } = await octokit.rest.users.getAuthenticated();
+        localStorage.setItem('username', user.login);
+        setRerender(!rerender);
     }
 
     useEffect(() => {

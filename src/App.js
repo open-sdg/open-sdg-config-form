@@ -138,7 +138,8 @@ const App = () => {
             configFilename: 'foo.yml',
             githubClientId: 'd057ffc62f01ce8f3376',
             //proxyUrl: 'https://open-sdg-github-auth-production.up.railway.app',
-            repository: 'https://github.com/brockfanning/configtesting',
+            githubRepo: 'open-sdg-github-auth',
+            githubOwner: 'open-sdg',
             proxyUrl: 'http://localhost:4000',
         }
     }
@@ -160,9 +161,9 @@ const App = () => {
         configFilename,
         githubClientId,
         proxyUrl,
-        repository,
+        githubRepo,
+        githubOwner,
     } = opensdg.configForm;
-    const loggedIn = localStorage.getItem('accessToken') !== null;
     const [data, setData] = useState(initialData);
     const [errors, setErrors] = useState(null);
     return (
@@ -178,13 +179,13 @@ const App = () => {
                 proxyUrl={proxyUrl}
             />
             }
-            { loggedIn &&
+            { githubClientId && proxyUrl &&
             <GithubPushButton
-                proxyUrl={proxyUrl}
                 data={data}
                 errors={errors}
                 filename={configFilename}
-                repository={repository}
+                githubRepo={githubRepo}
+                githubOwner={githubOwner}
             />
             }
             <ThemeProvider theme={theme}>

@@ -19,8 +19,10 @@
     "@mui/icons-material": "^5.11.0",
     "@mui/material": "^5.11.0",
     "@mui/x-date-pickers": "^5.0.11",
+    "@octokit/rest": "^19.0.5",
     "file-saver": "^2.0.5",
     "js-yaml": "^4.1.0",
+    "octokit-plugin-create-pull-request": "^4.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
