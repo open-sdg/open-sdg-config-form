@@ -92,7 +92,7 @@ const GithubPushButton = (props) => {
         });
         const fileChange = {
             files: {},
-            commit: 'My commit message',
+            commit: description,
         };
         fileChange.files[folder + '/' + filename] = dump(formData);
         const { data: pullRequest } = await octokit.createPullRequest({
