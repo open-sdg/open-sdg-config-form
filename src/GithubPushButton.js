@@ -17,9 +17,10 @@ const MyOctokit = Octokit.plugin(createPullRequest);
 const GithubPushButton = (props) => {
 
     const {
-        data,
-        errors,
+        formData,
+        formErrors,
         filename,
+        folder,
         githubRepo,
         githubOwner,
     } = props;
@@ -79,8 +80,8 @@ const GithubPushButton = (props) => {
             return;
         }
 
-        if (errors.length > 0) {
-            const errorMessages = errors.map((error) => '- ' + error.message);
+        if (formErrors.length > 0) {
+            const errorMessages = formErrors.map((error) => '- ' + error.message);
             let message = 'Please correct the following errors: \n';
             alert(message + errorMessages.join('\n'));
             setDialogOpen(false);
@@ -93,7 +94,7 @@ const GithubPushButton = (props) => {
             files: {},
             commit: 'My commit message',
         };
-        fileChange.files[filename] = dump(data);
+        fileChange.files[folder + '/' + filename] = dump(formData);
         const { data: pullRequest } = await octokit.createPullRequest({
           owner: githubOwner,
           repo: githubRepo,

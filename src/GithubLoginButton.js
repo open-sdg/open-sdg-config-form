@@ -4,7 +4,7 @@ import { Octokit } from '@octokit/rest';
 
 const GithubLoginButton = (props) => {
 
-    const { githubClientId, proxyUrl } = props;
+    const { githubClientId, githubProxyUrl } = props;
     const [rerender, setRerender] = useState(false);
 
     function loginWithGithub() {
@@ -23,7 +23,7 @@ const GithubLoginButton = (props) => {
     }
 
     async function getAccessToken(codeParam) {
-        await fetch(proxyUrl + '/getAccessToken?code=' + codeParam, {})
+        await fetch(githubProxyUrl + '/getAccessToken?code=' + codeParam, {})
         .then((response) => {
             return response.json();
         })

@@ -4,7 +4,7 @@ import { dump } from 'js-yaml';
 import { Button } from '@mui/material';
 
 const DownloadButton = (props) => {
-    const { data, errors, filename } = props;
+    const { formData, formErrors, filename } = props;
     const saveAsFile = (t,f,m) => {
         try {
           var b = new Blob([t],{type:m});
@@ -14,13 +14,14 @@ const DownloadButton = (props) => {
         }
     }
     const clickHandler = (e) => {
-        if (errors.length > 0) {
-            const errorMessages = errors.map((error) => '- ' + error.message);
+        if (formErrors.length > 0) {
+            const errorMessages = formErrors.map((error) => '- ' + error.message);
             let message = 'Please correct the following errors: \n';
+            console.log(formErrors);
             alert(message + errorMessages.join('\n'));
         }
         else {
-            const yaml = dump(data);
+            const yaml = dump(formData);
             saveAsFile(yaml, filename, 'text/plain;charset=utf-8');
         }
     }
