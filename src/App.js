@@ -8,6 +8,15 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import DownloadButton from './DownloadButton';
 import GithubLoginButton from './GithubLoginButton';
 import GithubPushButton from './GithubPushButton';
+import CheckboxWithDescription, {
+    checkboxWithDescriptionTester
+} from './CheckboxWithDescription';
+import GroupWithDescription, {
+    groupWithDescriptionTester
+} from './GroupWithDescription';
+import ArrayWithDescription, {
+    arrayWithDescriptionTester
+} from './ArrayWithDescription';
 
 const App = () => {
 
@@ -20,6 +29,22 @@ const App = () => {
             },
         },
     });
+
+    const renderers = [
+        ...materialRenderers,
+        {
+            tester: checkboxWithDescriptionTester,
+            renderer: CheckboxWithDescription,
+        },
+        {
+            tester: groupWithDescriptionTester,
+            renderer: GroupWithDescription,
+        },
+        {
+            tester: arrayWithDescriptionTester,
+            renderer: ArrayWithDescription,
+        },
+    ];
 
     const {
         schema,
@@ -34,6 +59,9 @@ const App = () => {
     } = opensdg.configForm;
     const [formData, setFormData] = useState(initialData);
     const [formErrors, setFormErrors] = useState(null);
+    const jsonformsConfig = {
+        //showUnfocusedDescription: true,
+    };
     return (
         <>
             <DownloadButton
@@ -63,7 +91,8 @@ const App = () => {
                         schema={schema}
                         uischema={uiSchema}
                         data={formData}
-                        renderers={materialRenderers}
+                        renderers={renderers}
+                        config={jsonformsConfig}
                         cells={materialCells}
                         onChange={({ data, errors }) => {
                             setFormData(data);
