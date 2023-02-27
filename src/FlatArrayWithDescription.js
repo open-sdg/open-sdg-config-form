@@ -1,15 +1,17 @@
 import React, { useCallback, useState } from 'react';
-import { ArrayLayoutProps, rankWith, isObjectArrayControl } from '@jsonforms/core';
+import { ArrayLayoutProps, rankWith, isPrimitiveArrayControl } from '@jsonforms/core';
 import { withJsonFormsArrayLayoutProps } from '@jsonforms/react';
-import { Hidden } from '@mui/material';
 import { MaterialTableControl } from './duplicates/MaterialTableControl';
+import { Hidden } from '@mui/material';
 import { DeleteDialog } from './duplicates/DeleteDialog';
 
-export const ObjectArrayWithDescription = (props) => {
+export const FlatArrayWithDescription = (props) => {
   const [open, setOpen] = useState(false);
   const [path, setPath] = useState(undefined);
   const [rowData, setRowData] = useState(undefined);
-  const { removeItems, visible, description, config, uischema, schema } = props;
+  const { removeItems, visible } = props;
+
+  console.log('here');
 
   const openDeleteDialog = useCallback((p, rowIndex) => {
     setOpen(true);
@@ -23,6 +25,7 @@ export const ObjectArrayWithDescription = (props) => {
     setOpen(false);
   }, [setOpen, path, rowData]);
   const deleteClose = useCallback(() => setOpen(false), [setOpen]);
+
   console.log(props, 'props in ObjectArrayWithDescription');
   return (
     <Hidden xsUp={!visible}>
@@ -40,8 +43,8 @@ export const ObjectArrayWithDescription = (props) => {
   );
 };
 
-export const objectArrayWithDescriptionTester = rankWith(
-    5,
-    isObjectArrayControl
+export const flatArrayWithDescriptionTester = rankWith(
+    4,
+    isPrimitiveArrayControl
 );
-export default withJsonFormsArrayLayoutProps(ObjectArrayWithDescription);
+export default withJsonFormsArrayLayoutProps(FlatArrayWithDescription);

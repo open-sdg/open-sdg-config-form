@@ -349,14 +349,18 @@ export class MaterialTableControl extends React.Component {
       cells
     } = this.props;
 
-    const parentSchema = resolveSchema(rootSchema, '#/properties/logos', rootSchema);
-    let link, linkText;
-    const description = parentSchema.description;
-    if (parentSchema.links && parentSchema.links.length > 0) {
-      link = parentSchema.links[0].href;
-      linkText = parentSchema.links[0].rel;
+    const parentSchema = resolveSchema(rootSchema, '#/properties/' + path, rootSchema);
+    let link, linkText, description;
+    if (parentSchema) {
+      description = parentSchema.description;
+      if (parentSchema.links && parentSchema.links.length > 0) {
+        link = parentSchema.links[0].href;
+        linkText = parentSchema.links[0].rel;
+      }
     }
-
+    else {
+      console.log('no parentSchema');
+    }
     const controlElement = uischema;
     const isObjectSchema = schema.type === 'object';
     const headerCells = isObjectSchema

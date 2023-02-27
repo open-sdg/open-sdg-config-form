@@ -17,6 +17,9 @@ import GroupWithDescription, {
 import ObjectArrayWithDescription, {
     objectArrayWithDescriptionTester
 } from './ObjectArrayWithDescription';
+import FlatArrayWithDescription, {
+    flatArrayWithDescriptionTester
+} from './FlatArrayWithDescription';
 import TextWithDescription, {
     textWithDescriptionTester
 } from './TextWithDescription';
@@ -54,6 +57,10 @@ const App = () => {
         {
             tester: objectArrayWithDescriptionTester,
             renderer: ObjectArrayWithDescription,
+        },
+        {
+            tester: flatArrayWithDescriptionTester,
+            renderer: FlatArrayWithDescription,
         },
         {
             tester: textWithDescriptionTester,
