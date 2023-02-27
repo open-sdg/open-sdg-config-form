@@ -29,15 +29,11 @@ import { Hidden } from '@mui/material';
 import { MaterialTableControl } from './duplicates/MaterialTableControl';
 import { DeleteDialog } from './duplicates/DeleteDialog';
 
-export const ArrayWithDescription = (props) => {
+export const ObjectArrayWithDescription = (props) => {
   const [open, setOpen] = useState(false);
   const [path, setPath] = useState(undefined);
   const [rowData, setRowData] = useState(undefined);
-  const { removeItems, visible, description, config, uischema } = props;
-
-  console.log(description);
-  console.log(config);
-  console.log(uischema);
+  const { removeItems, visible, description, config, uischema, schema } = props;
 
   const openDeleteDialog = useCallback((p, rowIndex) => {
     setOpen(true);
@@ -51,7 +47,7 @@ export const ArrayWithDescription = (props) => {
     setOpen(false);
   }, [setOpen, path, rowData]);
   const deleteClose = useCallback(() => setOpen(false), [setOpen]);
-
+  console.log(props, 'props in ObjectArrayWithDescription');
   return (
     <Hidden xsUp={!visible}>
       <MaterialTableControl
@@ -68,8 +64,8 @@ export const ArrayWithDescription = (props) => {
   );
 };
 
-export const arrayWithDescriptionTester = rankWith(
+export const objectArrayWithDescriptionTester = rankWith(
     4,
     isObjectArrayControl
 );
-export default withJsonFormsArrayLayoutProps(ArrayWithDescription);
+export default withJsonFormsArrayLayoutProps(ObjectArrayWithDescription);

@@ -14,9 +14,12 @@ import CheckboxWithDescription, {
 import GroupWithDescription, {
     groupWithDescriptionTester
 } from './GroupWithDescription';
-import ArrayWithDescription, {
-    arrayWithDescriptionTester
-} from './ArrayWithDescription';
+import ObjectArrayWithDescription, {
+    objectArrayWithDescriptionTester
+} from './ObjectArrayWithDescription';
+import TextWithDescription, {
+    textWithDescriptionTester
+} from './TextWithDescription';
 
 const App = () => {
 
@@ -24,9 +27,17 @@ const App = () => {
         components: {
             MuiTabs: {
                 defaultProps: {
-                    //orientation: 'vertical',
+                    orientation: 'vertical',
                 },
             },
+            MuiAppBar: {
+                defaultProps: {
+                    sx: {
+                        width: 'inherit',
+                        marginRight: '16px'
+                    }
+                }
+            }
         },
     });
 
@@ -41,8 +52,12 @@ const App = () => {
             renderer: GroupWithDescription,
         },
         {
-            tester: arrayWithDescriptionTester,
-            renderer: ArrayWithDescription,
+            tester: objectArrayWithDescriptionTester,
+            renderer: ObjectArrayWithDescription,
+        },
+        {
+            tester: textWithDescriptionTester,
+            renderer: TextWithDescription,
         },
     ];
 
@@ -85,8 +100,8 @@ const App = () => {
                 githubOwner={githubOwner}
             />
             }
-            <ThemeProvider theme={theme}>
-                <div>
+            <div style={{display: 'flex'}}>
+                <ThemeProvider theme={theme}>
                     <JsonForms
                         schema={schema}
                         uischema={uiSchema}
@@ -99,8 +114,8 @@ const App = () => {
                             setFormErrors(errors);
                         }}
                     />
-                </div>
-            </ThemeProvider>
+                </ThemeProvider>
+            </div>
         </>
     )
 }

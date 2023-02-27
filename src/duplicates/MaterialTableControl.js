@@ -42,7 +42,8 @@ import {
   TableCell,
   TableHead,
   TableRow,
-  Typography
+  Typography,
+  Tooltip,
 } from '@mui/material';
 import {
   ArrayLayoutProps,
@@ -56,7 +57,9 @@ import {
   JsonFormsCellRendererRegistryEntry,
   encode
 } from '@jsonforms/core';
+import { resolveSchema } from '@jsonforms/core';
 import DeleteIcon from '@mui/icons-material/Delete';
+import HelpIcon from '@mui/icons-material/Help';
 import ArrowDownward from '@mui/icons-material/ArrowDownward';
 import ArrowUpward from '@mui/icons-material/ArrowUpward';
 
@@ -98,6 +101,7 @@ const generateCells = (
         propName: prop,
         schema,
         title: schema.properties?.[prop]?.title ?? startCase(prop),
+        description: schema.properties?.[prop]?.description ?? null,
         rowPath,
         cellPath,
         enabled,
@@ -135,8 +139,13 @@ const EmptyTable = ({ numColumns }) => (
   </TableRow>
 );
 
-const TableHeaderCell = React.memo(({ title }) => (
-  <TableCell>{title}</TableCell>
+const TableHeaderCell = React.memo(({ title, description }) => (
+  <TableCell>
+    {title}
+    <Tooltip title={description} sx={{ marginLeft: 1 }}>
+      <HelpIcon />
+    </Tooltip>
+  </TableCell>
 ));
 
 const ctxToNonEmptyCellProps = (
@@ -340,6 +349,14 @@ export class MaterialTableControl extends React.Component {
       cells
     } = this.props;
 
+    const parentSchema = resolveSchema(rootSchema, '#/properties/logos', rootSchema);
+    let link, linkText;
+    const description = parentSchema.description;
+    if (parentSchema.links && parentSchema.links.length > 0) {
+      link = parentSchema.links[0].href;
+      linkText = parentSchema.links[0].rel;
+    }
+
     const controlElement = uischema;
     const isObjectSchema = schema.type === 'object';
     const headerCells = isObjectSchema
@@ -348,11 +365,26 @@ export class MaterialTableControl extends React.Component {
 
     return (
       <Hidden xsUp={!visible}>
-        <Table>
+          <Table>
           <TableHead>
             <TableToolbar
               errors={errors}
-              label={label}
+              label={
+                <>
+                  <Typography variant="h5" component="h5">
+                    { label }
+                    <Tooltip title={description}>
+                      <IconButton
+                        aria-label={linkText + ' (opens in a new tab)'}
+                        href={link}
+                        target="_blank"
+                      >
+                        <HelpIcon />
+                      </IconButton>
+                    </Tooltip>
+                  </Typography>
+                </>
+              }
               addItem={this.addItem}
               numColumns={isObjectSchema ? headerCells.length : 1}
               path={path}
