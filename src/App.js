@@ -82,7 +82,7 @@ const App = () => {
     const [formData, setFormData] = useState(initialData);
     const [formErrors, setFormErrors] = useState(null);
     const jsonformsConfig = {
-        //showUnfocusedDescription: true,
+        showUnfocusedDescription: true,
     };
     return (
         <>

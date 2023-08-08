@@ -34,7 +34,7 @@ import {
 } from '@jsonforms/core';
 import { withJsonFormsControlProps } from '@jsonforms/react';
 import { FormControlLabel, FormHelperText, Tooltip, Hidden } from '@mui/material';
-import { MuiCheckbox } from './MuiCheckbox';
+import { MuiCheckbox } from '@jsonforms/material-renderers';
 
 export const CheckboxWithDescription = ({
   data,

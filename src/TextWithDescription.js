@@ -4,7 +4,7 @@ import {
   rankWith
 } from '@jsonforms/core';
 import { withJsonFormsControlProps } from '@jsonforms/react';
-import { MuiInputText } from './duplicates/MuiInputText';
+import { MuiInputText } from '@jsonforms/material-renderers';
 import { MaterialInputControl } from './MaterialInputControl';
 
 export const TextWithDescription = (props) => (

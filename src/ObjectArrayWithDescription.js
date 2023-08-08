@@ -2,8 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { ArrayLayoutProps, rankWith, isObjectArrayControl } from '@jsonforms/core';
 import { withJsonFormsArrayLayoutProps } from '@jsonforms/react';
 import { Hidden } from '@mui/material';
-import { MaterialTableControl } from './duplicates/MaterialTableControl';
-import { DeleteDialog } from './duplicates/DeleteDialog';
+import { DeleteDialog, MaterialTableControl } from '@jsonforms/material-renderers';
 
 export const ObjectArrayWithDescription = (props) => {
   const [open, setOpen] = useState(false);
