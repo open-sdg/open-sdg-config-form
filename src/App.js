@@ -20,6 +20,9 @@ import FlatArrayWithDescription, {
 import TextWithDescription, {
     textWithDescriptionTester
 } from './TextWithDescription';
+import GroupWithAccordion, {
+    groupWithAccordionTester
+} from './GroupWithAccordion';
 
 const App = () => {
 
@@ -58,6 +61,10 @@ const App = () => {
         {
             tester: textWithDescriptionTester,
             renderer: TextWithDescription,
+        },
+        {
+            tester: groupWithAccordionTester,
+            renderer: GroupWithAccordion,
         },
     ];
 
