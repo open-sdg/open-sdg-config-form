@@ -8,9 +8,6 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import DownloadButton from './DownloadButton';
 import GithubLoginButton from './GithubLoginButton';
 import GithubPushButton from './GithubPushButton';
-import CheckboxWithDescription, {
-    checkboxWithDescriptionTester
-} from './CheckboxWithDescription';
 import GroupWithDescription, {
     groupWithDescriptionTester
 } from './GroupWithDescription';
@@ -46,10 +43,6 @@ const App = () => {
 
     const renderers = [
         ...materialRenderers,
-        {
-            tester: checkboxWithDescriptionTester,
-            renderer: CheckboxWithDescription,
-        },
         {
             tester: groupWithDescriptionTester,
             renderer: GroupWithDescription,

@@ -15,7 +15,7 @@ const DownloadButton = (props) => {
     }
     const clickHandler = (e) => {
         if (formErrors.length > 0) {
-            const errorMessages = formErrors.map((error) => '- ' + error.message);
+            const errorMessages = formErrors.map((error) => '- ' + error.parentSchema.title + ': ' + error.message);
             let message = 'Please correct the following errors: \n';
             alert(message + errorMessages.join('\n'));
         }
