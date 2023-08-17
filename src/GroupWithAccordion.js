@@ -23,14 +23,17 @@ const GroupWithAccordion = (props) => {
     uischema: uischema,
     renderers: renderers,
   };
+  const documentationId = uischema.documentationKey + '-documentation';
   return (
     <Hidden xsUp={!visible}>
+      <Typography>{uischema.label}</Typography>
+      <MaterialLayoutRenderer {...layoutProps} />
       <Accordion>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography>{uischema.label}</Typography>
+          <Typography>More information on the {uischema.label} setting</Typography>
         </AccordionSummary>
-        <AccordionDetails>
-          <MaterialLayoutRenderer {...layoutProps} />
+        <AccordionDetails id={documentationId}>
+          <Typography>Loading, please wait...</Typography>
         </AccordionDetails>
       </Accordion>
     </Hidden>

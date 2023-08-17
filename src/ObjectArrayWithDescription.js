@@ -22,7 +22,6 @@ export const ObjectArrayWithDescription = (props) => {
     setOpen(false);
   }, [setOpen, path, rowData]);
   const deleteClose = useCallback(() => setOpen(false), [setOpen]);
-  console.log(props, 'props in ObjectArrayWithDescription');
   return (
     <Hidden xsUp={!visible}>
       <MaterialTableControl
