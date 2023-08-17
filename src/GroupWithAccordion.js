@@ -10,6 +10,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import React from 'react';
 import { withJsonFormsLayoutProps } from '@jsonforms/react';
 import { rankWith, uiTypeIs } from '@jsonforms/core';
+import { useFetchDocumentation } from './hooks';
 
 const GroupWithAccordion = (props) => {
   const { uischema, schema, path, visible, renderers } = props;
@@ -23,7 +24,8 @@ const GroupWithAccordion = (props) => {
     uischema: uischema,
     renderers: renderers,
   };
-  const documentationId = uischema.documentationKey + '-documentation';
+  const { status, data, error } = useFetchDocumentation();
+
   return (
     <Hidden xsUp={!visible}>
       <Typography>{uischema.label}</Typography>
@@ -32,8 +34,16 @@ const GroupWithAccordion = (props) => {
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           <Typography>More information on the {uischema.label} setting</Typography>
         </AccordionSummary>
-        <AccordionDetails id={documentationId}>
+        <AccordionDetails>
+          {status == 'fetched' &&
+          <div className="docs-content" dangerouslySetInnerHTML={{__html: data[uischema.documentationKey]}}></div>
+          }
+          {status == 'fetching' &&
           <Typography>Loading, please wait...</Typography>
+          }
+          {status == 'error' &&
+          <Typography>{error}</Typography>
+          }
         </AccordionDetails>
       </Accordion>
     </Hidden>
