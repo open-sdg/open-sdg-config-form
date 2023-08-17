@@ -8,62 +8,11 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import DownloadButton from './DownloadButton';
 import GithubLoginButton from './GithubLoginButton';
 import GithubPushButton from './GithubPushButton';
-import GroupWithDescription, {
-    groupWithDescriptionTester
-} from './GroupWithDescription';
-import ObjectArrayWithDescription, {
-    objectArrayWithDescriptionTester
-} from './ObjectArrayWithDescription';
-import FlatArrayWithDescription, {
-    flatArrayWithDescriptionTester
-} from './FlatArrayWithDescription';
-import TextWithDescription, {
-    textWithDescriptionTester
-} from './TextWithDescription';
 import GroupWithAccordion, {
     groupWithAccordionTester
 } from './GroupWithAccordion';
 
 const App = () => {
-
-    const fetchDocumentation = () => {
-        fetch("https://readthedocs.org/api/v3/embed/?format=json&url=https://open-sdg.readthedocs.io/en/latest/configuration/")
-          .then(response => {
-            return response.json()
-          })
-          .then(data => {
-            setDocumentation(data);
-          });
-    }
-
-    const setDocumentation = (data) => {
-        const el = document.createElement('html');
-        el.innerHTML = '<html><head><title>titleTest</title></head><body>' + data.content + '</body></html>';
-        const section = el.querySelector('.section');
-        let currentId = null;
-        const settings = {};
-        for (const child of section.children) {
-            if (child.id) {
-                currentId = child.id;
-            }
-            if (currentId) {
-                if (!settings[currentId]) {
-                    settings[currentId] = '';
-                }
-                settings[currentId] += child.outerHTML;
-            }
-        }
-        for (const documentationKey of Object.keys(settings)) {
-            const accordionEl = document.getElementById(documentationKey + '-documentation');
-            if (accordionEl) {
-                accordionEl.innerHTML = settings[documentationKey];
-                const links = accordionEl.getElementsByTagName('a');
-                for (const link of links) {
-                    link.target = '_blank';
-                }
-            }
-        }
-    }
 
     const theme = createTheme({
         components: {
@@ -86,22 +35,6 @@ const App = () => {
     const renderers = [
         ...materialRenderers,
         {
-            tester: groupWithDescriptionTester,
-            renderer: GroupWithDescription,
-        },
-        {
-            tester: objectArrayWithDescriptionTester,
-            renderer: ObjectArrayWithDescription,
-        },
-        {
-            tester: flatArrayWithDescriptionTester,
-            renderer: FlatArrayWithDescription,
-        },
-        {
-            tester: textWithDescriptionTester,
-            renderer: TextWithDescription,
-        },
-        {
             tester: groupWithAccordionTester,
             renderer: GroupWithAccordion,
         },
@@ -123,7 +56,7 @@ const App = () => {
     const jsonformsConfig = {
         showUnfocusedDescription: true,
     };
-    setTimeout(fetchDocumentation, 2000);
+    //setTimeout(fetchDocumentation, 2000);
     return (
         <>
             <DownloadButton
