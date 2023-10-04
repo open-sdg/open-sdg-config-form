@@ -8,6 +8,9 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import DownloadButton from './DownloadButton';
 import GithubLoginButton from './GithubLoginButton';
 import GithubPushButton from './GithubPushButton';
+import GroupWithDescription, {
+    groupWithDescriptionTester
+} from './GroupWithDescription';
 import ObjectArrayWithDescription, {
     objectArrayWithDescriptionTester
 } from './ObjectArrayWithDescription';
@@ -82,6 +85,10 @@ const App = () => {
 
     const renderers = [
         ...materialRenderers,
+        {
+            tester: groupWithDescriptionTester,
+            renderer: GroupWithDescription,
+        },
         {
             tester: objectArrayWithDescriptionTester,
             renderer: ObjectArrayWithDescription,
