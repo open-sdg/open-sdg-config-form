@@ -5,6 +5,7 @@ import {
   AccordionSummary,
   Hidden,
   Typography,
+  FormHelperText,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import React from 'react';
@@ -28,7 +29,12 @@ const GroupWithAccordion = (props) => {
 
   return (
     <Hidden xsUp={!visible}>
+      {uischema.label &&
       <Typography>{uischema.label}</Typography>
+      }
+      {uischema.description &&
+      <FormHelperText>{uischema.description}</FormHelperText>
+      }
       <MaterialLayoutRenderer {...layoutProps} />
       <Accordion>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
