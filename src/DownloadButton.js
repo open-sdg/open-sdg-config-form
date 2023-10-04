@@ -17,9 +17,12 @@ const DownloadButton = (props) => {
         if (formErrors.length > 0) {
             const errorMessages = formErrors.map((error) => '- ' + error.parentSchema.title + ': ' + error.message);
             let message = 'Please correct the following errors: \n';
+            console.log(formData, 'formData');
+            console.log(formErrors, 'formErrors');
             alert(message + errorMessages.join('\n'));
         }
         else {
+            alert('After downloading the file, click "Go to repository" and then upload the file there.');
             const yaml = dump(formData);
             saveAsFile(yaml, filename, 'text/plain;charset=utf-8');
         }

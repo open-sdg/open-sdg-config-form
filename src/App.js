@@ -6,6 +6,7 @@ import {
 import { JsonForms } from '@jsonforms/react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import DownloadButton from './DownloadButton';
+import GoToRepositoryButton from './GoToRepositoryButton';
 import GithubLoginButton from './GithubLoginButton';
 import GithubPushButton from './GithubPushButton';
 import GroupWithDescription, {
@@ -117,7 +118,10 @@ const App = () => {
         githubProxyUrl,
         githubRepo,
         githubOwner,
+        repoUrl,
+        repositoryLink,
     } = opensdg.configForm;
+    console.log(opensdg.configForm);
     const [formData, setFormData] = useState(initialData);
     const [formErrors, setFormErrors] = useState(null);
     const jsonformsConfig = {
@@ -130,6 +134,7 @@ const App = () => {
                 formData={formData}
                 formErrors={formErrors}
                 filename={configFilename}
+                uiSchema={uiSchema}
             />
             { githubClientId && githubProxyUrl &&
             <GithubLoginButton
@@ -145,6 +150,12 @@ const App = () => {
                 folder={configFolder}
                 githubRepo={githubRepo}
                 githubOwner={githubOwner}
+            />
+            }
+            { !githubClientId && !githubProxyUrl && repoUrl && repositoryLink &&
+            <GoToRepositoryButton
+                repoUrl={repoUrl}
+                repositoryLink={repositoryLink}
             />
             }
             <div style={{display: 'flex'}}>

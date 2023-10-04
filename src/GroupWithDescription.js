@@ -4,11 +4,7 @@ import {
   Card,
   CardContent,
   CardHeader,
-  CardActions,
-  Link,
-  Tooltip,
-  IconButton,
-  Hidden
+  Hidden,
 } from '@mui/material';
 import HelpIcon from '@mui/icons-material/Help';
 import {
@@ -25,12 +21,7 @@ export const groupTester = rankWith(2, uiTypeIs('Group'));
 const style = { marginBottom: '10px' };
 
 const GroupWithDescriptionComponent = React.memo(({ visible, enabled, uischema, label, ...props }) => {
-    let link, linkText;
     const description = props.schema.description;
-    if (props.schema.links && props.schema.links.length > 0) {
-      link = props.schema.links[0].href;
-      linkText = props.schema.links[0].rel;
-    }
 
     return (
     <Hidden xsUp={!visible}>
@@ -38,17 +29,7 @@ const GroupWithDescriptionComponent = React.memo(({ visible, enabled, uischema, 
         {!isEmpty(label) && (
           <CardHeader
             title={label}
-            action={(
-              <Tooltip title={description}>
-                <IconButton
-                  aria-label={linkText + ' (opens in a new tab)'}
-                  href={link}
-                  target="_blank"
-                >
-                  <HelpIcon />
-                </IconButton>
-              </Tooltip>
-            )}
+            subheader={description}
           />
         )}
         <CardContent>
