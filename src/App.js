@@ -12,9 +12,6 @@ import GithubPushButton from './GithubPushButton';
 import GroupWithDescription, {
     groupWithDescriptionTester
 } from './GroupWithDescription';
-import ObjectArrayWithDescription, {
-    objectArrayWithDescriptionTester
-} from './ObjectArrayWithDescription';
 import FlatArrayWithDescription, {
     flatArrayWithDescriptionTester
 } from './FlatArrayWithDescription';
