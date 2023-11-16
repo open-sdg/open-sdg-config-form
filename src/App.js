@@ -12,9 +12,6 @@ import GithubPushButton from './GithubPushButton';
 import GroupWithDescription, {
     groupWithDescriptionTester
 } from './GroupWithDescription';
-import FlatArrayWithDescription, {
-    flatArrayWithDescriptionTester
-} from './FlatArrayWithDescription';
 import TextWithDescription, {
     textWithDescriptionTester
 } from './TextWithDescription';
@@ -86,10 +83,6 @@ const App = () => {
         {
             tester: groupWithDescriptionTester,
             renderer: GroupWithDescription,
-        },
-        {
-            tester: flatArrayWithDescriptionTester,
-            renderer: FlatArrayWithDescription,
         },
         {
             tester: textWithDescriptionTester,
