@@ -91,10 +91,6 @@ const App = () => {
             renderer: GroupWithDescription,
         },
         {
-            tester: objectArrayWithDescriptionTester,
-            renderer: ObjectArrayWithDescription,
-        },
-        {
             tester: flatArrayWithDescriptionTester,
             renderer: FlatArrayWithDescription,
         },
@@ -121,7 +117,6 @@ const App = () => {
         repoUrl,
         repositoryLink,
     } = opensdg.configForm;
-    console.log(opensdg.configForm);
     const [formData, setFormData] = useState(initialData);
     const [formErrors, setFormErrors] = useState(null);
     const jsonformsConfig = {
