@@ -30,7 +30,7 @@ const GroupWithAccordion = (props) => {
   return (
     <Hidden xsUp={!visible}>
       {uischema.label &&
-      <Typography>{uischema.label}</Typography>
+      <Typography className={'label-for-' + uischema.documentationKey}>{uischema.label}</Typography>
       }
       {uischema.description &&
       <FormHelperText>{uischema.description}</FormHelperText>

@@ -6,6 +6,7 @@ import {
 import { JsonForms } from '@jsonforms/react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import DownloadButton from './DownloadButton';
+import SearchBar from './SearchBar';
 import GoToRepositoryButton from './GoToRepositoryButton';
 import GithubLoginButton from './GithubLoginButton';
 import GithubPushButton from './GithubPushButton';
@@ -115,6 +116,10 @@ const App = () => {
     setTimeout(fetchDocumentation, 2000);
     return (
         <>
+            <SearchBar
+                schema={schema}
+                uiSchema={uiSchema}
+            />
             <DownloadButton
                 formData={formData}
                 formErrors={formErrors}
