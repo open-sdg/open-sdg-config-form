@@ -75,7 +75,22 @@ const App = () => {
                         marginRight: '16px'
                     }
                 }
-            }
+            },
+            MuiFormControl: {
+                defaultProps: {
+                    variant: 'standard',
+                },
+            },
+            MuiTextField: {
+                defaultProps: {
+                    variant: 'standard',
+                },
+            },
+            MuiSelect: {
+                defaultProps: {
+                    variant: 'standard',
+                },
+            },
         },
     });
 
