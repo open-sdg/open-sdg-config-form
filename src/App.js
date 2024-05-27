@@ -22,14 +22,21 @@ import GroupWithAccordion, {
 
 const App = () => {
 
-    const fetchDocumentation = () => {
-        fetch("https://readthedocs.org/api/v3/embed/?format=json&url=https://open-sdg.readthedocs.io/en/latest/configuration/")
-          .then(response => {
-            return response.json()
-          })
-          .then(data => {
-            setDocumentation(data);
-          });
+    const fetchDocumentation = (configType) => {
+        if (configType === 'metadata') {
+            return;
+        }
+        let docs = 'https://readthedocs.org/api/v3/embed/?format=json&url=https://open-sdg.readthedocs.io/en/latest/configuration/';
+        if (configType === 'indicator') {
+            docs = 'https://readthedocs.org/api/v3/embed/?format=json&url=https://open-sdg.readthedocs.io/en/latest/indicator-configuration/';
+        }
+        fetch(docs)
+            .then(response => {
+                return response.json()
+            })
+            .then(data => {
+                setDocumentation(data);
+            });
     }
 
     const setDocumentation = (data) => {
@@ -122,13 +129,14 @@ const App = () => {
         githubOwner,
         repoUrl,
         repositoryLink,
+        configType,
     } = opensdg.configForm;
     const [formData, setFormData] = useState(initialData);
     const [formErrors, setFormErrors] = useState(null);
     const jsonformsConfig = {
         showUnfocusedDescription: true,
     };
-    setTimeout(fetchDocumentation, 2000);
+    setTimeout(fetchDocumentation.bind(null, configType), 2000);
     return (
         <>
             <SearchBar
