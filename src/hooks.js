@@ -23,7 +23,13 @@ const parseDocumentation = (data) => {
 
 export const useFetchDocumentation = () => {
 	const cache = useRef({});
-    const url = 'https://readthedocs.org/api/v3/embed/?format=json&url=https://open-sdg.readthedocs.io/en/latest/configuration/';
+	if (opensdg.configForm.configType === 'metadata') {
+		return;
+	}
+	let url = 'https://readthedocs.org/api/v3/embed/?format=json&url=https://open-sdg.readthedocs.io/en/latest/configuration/';
+	if (opensdg.configForm.configType === 'indicator') {
+		url = 'https://readthedocs.org/api/v3/embed/?format=json&url=https://open-sdg.readthedocs.io/en/latest/indicator-configuration/';
+	}
 
 	const initialState = {
 		status: 'idle',

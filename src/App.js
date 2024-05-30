@@ -22,52 +22,6 @@ import GroupWithAccordion, {
 
 const App = () => {
 
-    const fetchDocumentation = (configType) => {
-        if (configType === 'metadata') {
-            return;
-        }
-        let docs = 'https://readthedocs.org/api/v3/embed/?format=json&url=https://open-sdg.readthedocs.io/en/latest/configuration/';
-        if (configType === 'indicator') {
-            docs = 'https://readthedocs.org/api/v3/embed/?format=json&url=https://open-sdg.readthedocs.io/en/latest/indicator-configuration/';
-        }
-        fetch(docs)
-            .then(response => {
-                return response.json()
-            })
-            .then(data => {
-                setDocumentation(data);
-            });
-    }
-
-    const setDocumentation = (data) => {
-        const el = document.createElement('html');
-        el.innerHTML = '<html><head><title>titleTest</title></head><body>' + data.content + '</body></html>';
-        const section = el.querySelector('.section');
-        let currentId = null;
-        const settings = {};
-        for (const child of section.children) {
-            if (child.id) {
-                currentId = child.id;
-            }
-            if (currentId) {
-                if (!settings[currentId]) {
-                    settings[currentId] = '';
-                }
-                settings[currentId] += child.outerHTML;
-            }
-        }
-        for (const documentationKey of Object.keys(settings)) {
-            const accordionEl = document.getElementById(documentationKey + '-documentation');
-            if (accordionEl) {
-                accordionEl.innerHTML = settings[documentationKey];
-                const links = accordionEl.getElementsByTagName('a');
-                for (const link of links) {
-                    link.target = '_blank';
-                }
-            }
-        }
-    }
-
     const theme = createTheme({
         components: {
             MuiTabs: {
@@ -129,14 +83,12 @@ const App = () => {
         githubOwner,
         repoUrl,
         repositoryLink,
-        configType,
     } = opensdg.configForm;
     const [formData, setFormData] = useState(initialData);
     const [formErrors, setFormErrors] = useState(null);
     const jsonformsConfig = {
         showUnfocusedDescription: true,
     };
-    setTimeout(fetchDocumentation.bind(null, configType), 2000);
     return (
         <>
             <SearchBar
