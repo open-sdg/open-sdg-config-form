@@ -38,7 +38,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: build-${{ matrix.tag }}
-          path: dist/${{ matrix.tag }}/
+          path: dist
   deploy:
     needs: [build]
     environment:
@@ -54,7 +54,7 @@ jobs:
           path: dist
       - name: Debugging
         run: |
-          ls dist/build-main
+          ls dist
       - name: Move the default build
         run: mv dist/main/* dist/
       - name: Setup Pages
