@@ -1,15 +1,11 @@
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = (env) => {
-    const buildPathParts = [__dirname, 'dist'];
-    if (env && env.tag && env.tag !== 'main') {
-        buildPathParts.push(env.tag);
-    }
     return {
         entry: './src/index.js',
         output: {
             filename: 'bundle.js',
-            path: buildPathParts.join('/'),
+            path: [__dirname, 'dist', env.tag].join('/'),
         },
         plugins: [
             new HTMLWebpackPlugin({
