@@ -34,7 +34,6 @@ jobs:
       - name: Build assets
         run: |
           npm run build -- --env tag=${{ matrix.tag }}
-          ls dist
           ls dist/${{ matrix.tag }}
       - uses: actions/upload-artifact@v4
         with:
@@ -55,7 +54,7 @@ jobs:
           path: dist
       - name: Debugging
         run: |
-          ls dist
+          ls dist/build-main
       - name: Move the default build
         run: mv dist/main/* dist/
       - name: Setup Pages
