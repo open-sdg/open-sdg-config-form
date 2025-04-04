@@ -58,7 +58,6 @@ jobs:
           ls
           ls dist
           ls dist/main
-          ls dist/2.3.0 
       - name: Move the default build
         run: mv dist/main/* dist/
       - name: Setup Pages
