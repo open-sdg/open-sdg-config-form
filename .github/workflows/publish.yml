@@ -15,13 +15,21 @@ concurrency:
 
 jobs:
   deploy:
+    strategy:
+      fail-fast: true
+      matrix:
+        tag:
+          - main
+          - 2.3.0
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ matrix.tag }}
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Setup Node
@@ -31,7 +39,7 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Build assets
-        run: npm run build
+        run: npm run build -- --env tag=${{ matrix.tag }}
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
