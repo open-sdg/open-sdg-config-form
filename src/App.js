@@ -57,9 +57,13 @@ const App = () => {
         },
     });
 
+    function getTypeOfData(data) {
+        return (data instanceof Array) ? 'array' : typeof data;
+    }
+
     const middleware = useCallback((state, action, defaultReducer) => {
-        const newState = defaultReducer(state, action);
         if (action.type === INIT) {
+            const newState = defaultReducer(state, action);
             // Explanation of this stuff:
             // Values in the YAML files like "5,5", when not wrapped in quotes,
             // get imported into the config form as the integer 55. So, we need
@@ -77,28 +81,26 @@ const App = () => {
                     set(newState.data, dashArrayPath, String(dashArrayValue).split('').join(','));
                 }
             }));
+            return newState;
         }
         else if (action.type === UPDATE_DATA) {
-            const schemaPath = 'properties/' + action.path
-                .split('.')
-                .join('/properties/');
-            const pathParts = schemaPath.split('/');
-            const property = get(state.schema, pathParts);
-            const type = property.type;
-
-            const newData = get(newState.data, action.path);
-            if (typeof newData === 'undefined') {
-                switch(type) {
+            const typeBefore = getTypeOfData(get(state.data, action.path));
+            const newState = defaultReducer(state, action);
+            const typeAfter = getTypeOfData(get(newState.data, action.path));
+            if (typeAfter === 'undefined') {
+                switch(typeBefore) {
                     case 'array':
                         set(newState.data, action.path, []);
-                    case 'boolean':
-                        set(newState.data, action.path, false);
                     default:
                         set(newState.data, action.path, '');
                 }
             }
+            return newState;
         }
-        return newState;
+        else {
+            const newState = defaultReducer(state, action);
+            return newState;
+        }
     });
 
     const renderers = [
