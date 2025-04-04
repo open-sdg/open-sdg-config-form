@@ -41,7 +41,7 @@ jobs:
       - name: Build assets
         run: npm run build -- --env tag=${{ matrix.tag }}
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v4
         with:
           path: 'dist'
       - name: Deploy to GitHub Pages
