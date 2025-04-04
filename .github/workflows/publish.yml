@@ -34,6 +34,9 @@ jobs:
         run: npm install
       - name: Build assets
         run: npm run build -- --env tag=${{ matrix.tag }}
+      - uses: actions/upload-artifact@v4
+        with:
+          path: dist
   deploy:
     needs: [build]
     environment:
@@ -43,6 +46,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - uses: actions/upload-artifact@v4
+        with:
+          path: dist
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Upload artifact
