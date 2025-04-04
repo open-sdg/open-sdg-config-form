@@ -55,9 +55,7 @@ jobs:
           path: dist
       - name: Debugging
         run: |
-          ls
           ls dist
-          ls dist/main
       - name: Move the default build
         run: mv dist/main/* dist/
       - name: Setup Pages
