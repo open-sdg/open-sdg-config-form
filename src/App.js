@@ -91,8 +91,10 @@ const App = () => {
                 switch(typeBefore) {
                     case 'array':
                         set(newState.data, action.path, []);
+                        break;
                     default:
                         set(newState.data, action.path, '');
+                        break;
                 }
             }
             return newState;
@@ -132,6 +134,31 @@ const App = () => {
         repoUrl,
         repositoryLink,
     } = opensdg.configForm;
+    const allowedDataProps = Object.keys(schema.properties);
+    const disallowedDataProps = Object.keys(initialData).filter((key) => {
+        return !allowedDataProps.includes(key);
+    });
+    disallowedDataProps.forEach((key) => {
+        delete initialData[key];
+    });
+    allowedDataProps.forEach((key) => {
+        if (typeof initialData[key] === 'undefined') {
+            switch(schema.properties[key].type) {
+                case 'string':
+                    initialData[key] = '';
+                    break;
+                case 'array':
+                    initialData[key] = [];
+                    break;
+                case 'object':
+                    initialData[key] = {};
+                    break;
+                case 'boolean':
+                    initialData[key] = false;
+                    break;
+            }
+        }
+    });
     const [formData, setFormData] = useState(initialData);
     const [formErrors, setFormErrors] = useState(null);
     const jsonformsConfig = {
