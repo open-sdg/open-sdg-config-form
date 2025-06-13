@@ -4,6 +4,11 @@ This repository holds the code for the configuration forms used in Open SDG. It 
 
 These forms use the excellent [JSONForms](https://jsonforms.io/) open-source library.
 
+## Available versions
+
+* Latest code: https://open-sdg.org/open-sdg-config-form/bundle.js
+* Version 2.3.1: https://open-sdg.org/open-sdg-config-form/2.3.1/bundle.js
+
 ## Dependencies
 
 * Node.js
