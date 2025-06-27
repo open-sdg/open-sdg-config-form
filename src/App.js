@@ -159,7 +159,13 @@ const App = () => {
             }
         }
     });
-    const [formData, setFormData] = useState(initialData);
+    // Sort the data.
+    const keys = Object.keys(initialData);
+    keys.sort();
+    const sortedData = {};
+    keys.forEach((key) => sortedData[key] = initialData[key]);
+
+    const [formData, setFormData] = useState(sortedData);
     const [formErrors, setFormErrors] = useState(null);
     const jsonformsConfig = {
         showUnfocusedDescription: true,
