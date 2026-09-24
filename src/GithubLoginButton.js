@@ -4,7 +4,16 @@ import { Octokit } from '@octokit/rest';
 
 const GithubLoginButton = (props) => {
 
-    const { githubClientId, githubProxyUrl } = props;
+    const normalizeUrl = (url) => {
+        if (!url) return url;
+        if (!/^https?:\/\//i.test(url)) {
+            return `https://${url}`;
+        }
+        return url;
+    };
+
+    const { githubClientId } = props;
+    const githubProxyUrl = normalizeUrl(props.githubProxyUrl);
     const [rerender, setRerender] = useState(false);
 
     function loginWithGithub() {
